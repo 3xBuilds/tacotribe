@@ -16,6 +16,12 @@
   }
 }
 
+@font-face {
+  font-family: 'candy-beans';
+  src: url('../assets/fonts/candy-beans.otf');
+  font-weight: 900;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,6 +30,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  font-family: 'candy-beans';
+  
 }
 
 .noscr::-webkit-scrollbar {

@@ -6,16 +6,14 @@ import React from 'react'
 import { GlobalContextProvider } from '../context/MainContext';
 
 //Web3
-import RainbowProvider from './rainbow/rainbowKit';
+// import RainbowProvider from './rainbow/rainbowKit';
 
 const Providers = ({ children }) => {
 
   return (
-    <RainbowProvider>
       <GlobalContextProvider>
           {children}
       </GlobalContextProvider>
-    </RainbowProvider>
   )
 }
 

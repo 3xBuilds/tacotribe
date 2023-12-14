@@ -1,4 +1,5 @@
 "use client";
+
 import React, { createContext, useContext } from "react";
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";

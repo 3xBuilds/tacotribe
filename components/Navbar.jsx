@@ -38,6 +38,7 @@ import dynamic from 'next/dynamic'
 import { useState, useEffect} from 'react'
 import NavButton from './UI/Buttons/navButton'
 import { WalletConnectButton } from "./UI/Buttons/walletConnectButton"
+
 import GuacBalance from "./UI/Labels/guacBalance"
 // const GuacBalance = dynamic(() => import("./UI/Labels/guacBalance"), { ssr: false });
 
@@ -66,7 +67,7 @@ export default function Navbar() {
             <NavButton upImage={minimartBtnUp} downImage={minimartBtnDown} selected={params == "/minimart" ? true : false} link={"/minimart"} />
         </div>}
 
-        <div suppressHydrationWarning={true} className="w-full flex items-center justify-between px-10 max-lg:px-2 fixed z-50 top-0 left-0 py-4">
+        <div suppressHydrationWarning={true} className="w-full flex items-center justify-between px-10 max-lg:px-2 fixed     z-50 top-0 left-0 py-4">
 
 
             <div className='min-[890px]:hidden'>
