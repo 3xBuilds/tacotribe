@@ -7,6 +7,8 @@ import Image from "next/image";
 import StakeTemplate from "../../components/UI/template/stakeTemplate"
 
 import StakeSwitcher from "../../components/UI/Staking/stakeSwitcher"
+import { useGlobalContext } from "../../context/MainContext";
+
 
 const banner = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/banner.png";
 
@@ -18,7 +20,7 @@ const stakeDown = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/B
 const claimUp = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/Tan+Button+UP.png"
 const claimDown = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/Tan+Button+DOWN.png"
 
-import error from "../../assets/projectImages/error_temporary.jpeg"
+const error = "https://tacotribe.s3.ap-south-1.amazonaws.com/assets/ui/error.png"
 
 // const switchUp = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/gREEN_bUTTON.png"
 // const switchDown = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/gREEN_Button_DOWN.png"
@@ -26,6 +28,7 @@ import error from "../../assets/projectImages/error_temporary.jpeg"
 export default function Stake() {
   const { isConnected, address } = useAccount()
   const [isClient, setIsClient] = useState(false)
+  const { setLoader } = useGlobalContext();
 
   useEffect(() => {
     setIsClient(true)
@@ -51,7 +54,7 @@ export default function Stake() {
       </div>
 
       {!isConnected && isClient && <>
-        <Image src={error} width={1920} height={1080} className="w-80 mx-auto my-20"/>
+        <Image src={error} width={1920} height={1080} className="w-80 mx-auto my-8"/>
         <h1 className="text-3xl text-black text-center">Seems like you are not connected.<br className=" max-lg:hidden"/><br/><span className="text-[3rem]">Please Connect Your Wallet!!!</span></h1>
       </>}
 

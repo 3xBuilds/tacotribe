@@ -10,11 +10,13 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from '@vercel/analytics/react';
 
 
+
 //Utils
 import Providers from '../utils/Providers'
 
 //Components
 import Navbar from "../components/Navbar"
+import Loader from "../components/UI/Loader/Loader"
 
 export const metadata = {
   title: 'Taco Tribe Shop',
@@ -68,6 +70,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={font.className + " select-none "}>
       <Providers>
+        <Loader/>
         <Navbar/>
         {children}
         <SpeedInsights />

@@ -4,6 +4,10 @@ import abi from "../../../../utils/newAbis/guacotribeabi";
 
 import { useAccount } from 'wagmi'
 
+import Swal from 'sweetalert2'
+
+
+
 export async function guacTribeSetup() {
     const { address } = useAccount()
 
@@ -19,7 +23,13 @@ export async function guacTribeSetup() {
         return contract;
     }
     catch (err) {
-        console.log("Error", err)
+        console.log("Error", err);
+        Swal.fire({
+            title: 'Error!',
+            text: 'Couldn\'t fetch Guac Tribe',
+            icon: 'error',
+            confirmButtonText: 'Cool!'
+        })
     }
 
 }

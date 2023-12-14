@@ -5,6 +5,9 @@ import Image from 'next/image'
 import { useState } from "react"
 import { contractAdds } from "../../../../utils/contractAdds"
 import abi from "../../../../utils/newAbis/doodletacosabi"
+import Swal from 'sweetalert2'
+
+import { useGlobalContext } from "../../../../context/MainContext"
 
 const claimUp = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/Tan+Button+UP.png"
 const claimDown = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/Tan+Button+DOWN.png"
@@ -26,6 +29,12 @@ export async function doodledTacoMintSetup(address) {
     }
     catch (err) {
         console.log("Error", err)
+        Swal.fire({
+            title: 'Error!',
+            text: 'Couldn\'t fetch Doodled Tacos',
+            icon: 'error',
+            confirmButtonText: 'Cool!'
+        })
     }
 
 }
@@ -36,16 +45,30 @@ export default function DoodleMint() {
     const [amountBoxShow, setAmountBoxShow] = useState(false);
     const { isConnected, address } = useAccount()
 
+    const {setLoader} = useGlobalContext();
+
 
     async function mint() {
+        setLoader(true)
         if (isConnected) {
             const contract = await doodledTacoMintSetup(address);
             console.log("inside mint", contract);
-            await contract.mint(amount, { gasLimit: 30000, value: ethers.utils.parseEther(String(15 * amount)) }).then((res) => { console.log(res); }).catch((err) => { console.log(err) });
+            try{
+                await contract.mint(amount, { gasLimit: 30000, value: ethers.utils.parseEther(String(15 * amount)) }).then((res) => { console.log(res); }).catch((err) => { console.log(err) });
+            }
+            catch{
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Couldn\'t mint Doodled Tacos',
+                    icon: 'error',
+                    confirmButtonText: 'Cool!'
+                })
+            }
         }
         else {
             console.log("Not Connected")
         }
+        setLoader(false)
     }
 
     const handleamountChange = async (e) => {

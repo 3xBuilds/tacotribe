@@ -3,7 +3,7 @@ import { contractAdds } from "../../../../utils/contractAdds";
 import abi from "../../../../utils/newAbis/babyTacosabi";
 
 import { useAccount } from 'wagmi'
-
+import Swal from 'sweetalert2'
 
 export async function babyTacosSetup() {
     const { address } = useAccount()
@@ -20,6 +20,12 @@ export async function babyTacosSetup() {
     }
     catch (err) {
         console.log("Error", err)
+        Swal.fire({
+            title: 'Error!',
+            text: 'Couldn\'t fetch Baby Tacos!',
+            icon: 'error',
+            confirmButtonText: 'Cool!'
+        })
     }
 
 }

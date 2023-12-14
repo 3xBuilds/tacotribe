@@ -6,7 +6,7 @@ const bgMobile = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/taco_colle
 export default function Home() {
   return (
     <>
-
+      
       {/* Background */}
       <div className="absolute top-0 left-0 w-screen h-screen z-0 md:block">
         <div className="relative h-full">

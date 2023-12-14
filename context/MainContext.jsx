@@ -12,10 +12,10 @@ import {
 const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
-  const [accessToken, setAccessToken] = useState(null);
+  const [loader, setLoader] = useState(false);
 
   return (
-    <GlobalContext.Provider value={{ accessToken, setAccessToken}}>
+    <GlobalContext.Provider value={{ loader, setLoader}}>
       {children}
     </GlobalContext.Provider>
   );

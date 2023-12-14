@@ -7,6 +7,7 @@ import { contractAdds } from "../../../../utils/contractAdds"
 import abi from "../../../../utils/newAbis/tacotribeabi"
 
 import { useAccount } from 'wagmi'
+import Swal from 'sweetalert2'
 
 const claimUp = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/Tan+Button+UP.png"
 const claimDown = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/Tan+Button+DOWN.png"
@@ -26,6 +27,12 @@ export async function tacoMintSetup(address) {
     }
     catch (err) {
         console.log("Error", err)
+        Swal.fire({
+            title: 'Error!',
+            text: 'Couldn\'t fetch Taco Tribe',
+            icon: 'error',
+            confirmButtonText: 'Cool!'
+        })
     }
 
 }
@@ -40,7 +47,17 @@ export default function TacoMint() {
     async function mint() {
         const contract = await tacoMintSetup(address);
         console.log("inside mint", contract);
-        await contract.mint(amount, { gasLimit: 30000, value: ethers.utils.parseEther(String(15 * amount)) }).then((res) => { console.log(res); }).catch((err) => { console.log(err) });
+        try{
+            await contract.mint(amount, { gasLimit: 30000, value: ethers.utils.parseEther(String(15 * amount)) }).then((res) => { console.log(res); }).catch((err) => { console.log(err) });
+        }
+        catch{
+            Swal.fire({
+                title: 'Error!',
+                text: 'Couldn\'t mint Taco Tribe',
+                icon: 'error',
+                confirmButtonText: 'Cool!'
+            })
+        }
     }
 
     const handleamountChange = async (e) => {

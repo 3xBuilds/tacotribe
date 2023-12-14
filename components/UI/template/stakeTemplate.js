@@ -16,6 +16,7 @@ import { useAccount } from 'wagmi'
 import abi from "../../../utils/newAbis/stakingabi"
 
 import { contractAdds } from "../../../utils/contractAdds"
+import { useGlobalContext } from "../../../context/MainContext"
 
 const guacos = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/guacos.png"
 const doodle = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/doodle.png"
@@ -40,6 +41,7 @@ export default function StakeTemplate({ name }) {
   const [currentContractId, setCurrentContractId] = useState(0);
 
   const { address } = useAccount();
+  const { setLoader } = useGlobalContext();
 
 
   //check which collection is to be displayed and call the handleContract function accordingly
@@ -85,14 +87,13 @@ export default function StakeTemplate({ name }) {
       default:
         return 0;
 
-      //BABY TACOS MISSING...
     }
   }
 
   //function to fetch details of each NFT (name, image, unclaimed $GUAC balance) of each collection. 
   const handleContract = async (data, collection) => {
 
-
+    setLoader(true);
     var displayArr = [];
 
     if (name.toUpperCase() == "PIXEL TACO") {
@@ -181,7 +182,7 @@ export default function StakeTemplate({ name }) {
 
         var bal;
 
-        typeof (data) !== 'string' ? bal = await data?.balanceOf(address) : setBalance(11);
+        typeof (data) !== 'string' ? bal = await data?.balanceOf(address) : setBalance(0);
         setBalance(Number(bal));
 
         const total = data?.totalSupply();
@@ -213,12 +214,15 @@ export default function StakeTemplate({ name }) {
       catch (err) {
         console.log(err);
       }
-    }    
-
+    }   
+    
+    setLoader(false);
   }
 
   //setup staking contract
   async function stakingSetup() {
+
+    setLoader(true);
     const add = contractAdds.staking;
 
     const provider = new ethers.providers.JsonRpcProvider("https://polygon-rpc.com");
@@ -233,21 +237,24 @@ export default function StakeTemplate({ name }) {
     catch (err) {
       console.log("Error", err)
     }
+    setLoader(false);
   }
-
 
   //check unclaimed amount of $GUAC for each collection and tokenId. Has been called in handleContract()
   async function unclaimed(tokenId, collection) {
+    setLoader(true);
     const contract = await stakingSetup(address);
 
     var unclaimedAmount = await contract?.unclaimedRewards(tokenId, collection);
     unclaimedAmount = ethers.utils.formatEther(unclaimedAmount)
 
+    setLoader(false);
     return unclaimedAmount;
   }
 
   //function to claim $GUAC of NFT user chosen to claim
   async function claim(tokenID, collection) {
+    setLoader(true);
     const contract = await stakingSetup(address);
 
     try {
@@ -257,9 +264,11 @@ export default function StakeTemplate({ name }) {
     catch (err) {
       console.log(err);
     }
+    setLoader(false);
   }
 
   const claimAll = async () => {
+    setLoader(true)
     const contract = await stakingSetup(address);
 
     try {
@@ -268,6 +277,8 @@ export default function StakeTemplate({ name }) {
     catch (err) {
       console.log(err);
     }
+
+    setLoader(false)
   }
 
   useEffect(() => {
@@ -286,10 +297,10 @@ export default function StakeTemplate({ name }) {
           <div className="w-fit py-1 text-[#73851C] text-3xl"><h2 >Stake your Tacos and earn $GUAC</h2></div>
           <div className="bg-white rounded-full w-fit px-4 py-1 shadow shadow-black/20 text-black cursor-pointer hover:bg-white/80"><h2 >Learn More</h2></div>
         </div>
-        <button onClick={claimAll} className='group cursor-pointer mx-auto max-md:mt-5 md:col-span-2'>
+        {balance>0 && <button onClick={claimAll} className='group cursor-pointer mx-auto max-md:mt-5 md:col-span-2'>
           <Image width={80} height={80} src={claimUp} alt="home" className={"w-40 group-hover:hidden"} />
           <Image width={80} height={80} src={claimDown} alt="home" className={"w-40 hidden group-hover:block"} />
-        </button>
+        </button>}
       </div>
 
       <div className="border-2 border-white bg-white mx-auto w-screen py-5 flex gap-5 px-5 items-center justify-center text-center">
