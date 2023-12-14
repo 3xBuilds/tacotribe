@@ -40,7 +40,7 @@ export default function GuacBalance(){
 
     const { address, isConnected,} = useAccount()
 
-    const { data, isError, isLoading } = useContractRead({
+    const { data, isError, isLoading, isSuccess } = useContractRead({
         address: contractAdds.guacToken,
         abi: guacTokenabi,
         functionName: 'balanceOf',
@@ -67,11 +67,11 @@ export default function GuacBalance(){
 
     useEffect(()=>{
         console.log("connection: ", isConnected);
-        if(isConnected){
+        if(isConnected, isSuccess){
             fetchBalance();
         }
         console.log("hiiii", typeof(guac))
-    },[isConnected])
+    },[isConnected, ])
 
 
     // if(isConnected) 

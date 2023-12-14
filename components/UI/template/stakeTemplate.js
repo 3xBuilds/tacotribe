@@ -11,7 +11,7 @@ import { tacoMintSetup } from '../Buttons/Minting/tacos'
 
 import { ethers } from "ethers"
 import { useEffect, useState } from "react"
-import { useAccount } from 'wagmi'
+import { useAccount, useContractRead, useContractWrite } from 'wagmi'
 
 import abi from "../../../utils/newAbis/stakingabi"
 

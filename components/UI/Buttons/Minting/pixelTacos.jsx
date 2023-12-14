@@ -9,7 +9,8 @@ import Swal from 'sweetalert2'
 
 import { useGlobalContext } from "../../../../context/MainContext"
 
-import { useAccount } from 'wagmi'
+import { useAccount, useContractWrite } from 'wagmi'
+import { useEffect } from 'react'
 
 const claimUp = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/Tan+Button+UP.png"
 const claimDown = "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/Tan+Button+DOWN.png"
@@ -24,7 +25,7 @@ export async function pixelMintSetup(address) {
 
     try {
         const contract = new ethers.Contract(pixelAdd, pixelTacosabi, signer);
-        
+
         return contract;
     }
     catch (err) {
@@ -36,44 +37,51 @@ export async function pixelMintSetup(address) {
             confirmButtonText: 'Cool!'
         })
     }
-    
+
 }
 
 export default function PixelMint() {
-    
-    const {setLoader} = useGlobalContext();
-    const { isConnected, address } = useAccount()
-    
-    async function mint() {
-        setLoader(true);
-        if (isConnected) {
 
-            const contract = await pixelMintSetup(address);
+    const { setLoader } = useGlobalContext();
+    const { isSuccess, isError, write } = useContractWrite({
+        address: contractAdds.pixelTacos,
+        abi: pixelTacosabi,
+        functionName: 'mint',
+    })
 
-            try{
-                
-                await contract.mint({ gasLimit: 30000 }).then((res) => { console.log(res); }).catch((err) => { console.log(err) });
-            }
-            catch{
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Couldn\'t fetch Pixel Tacos',
-                    icon: 'error',
-                    confirmButtonText: 'Cool!'
-                })
-            }
+    useEffect(() => {
+        if (isSuccess) {
+            setLoader(false);
+            Swal.fire({
+                title: 'Success!',
+                text: 'Succesfully Minted a Pixel Taco',
+                icon: 'success',
+                confirmButtonText: '🌮'
+            })
         }
-        else{
-            console.log("Not Connected")
+        if(isError){
+            console.log("Risav is right")
+            setLoader(false);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Couldn\'t fetch Pixel Tacos',
+                icon: 'error',
+                confirmButtonText: 'Bruh 😭'
+            })
         }
-        setLoader(false);
-    }
-    
+    }, [isSuccess, isError])
+
     return (
         <>
-            <button onClick={mint} className=" hidden md:block absolute cursor-pointer w-full h-full "></button>
+            <button onClick={() => {
+                write()
+                setLoader(true)
+                }} className=" hidden md:block absolute cursor-pointer w-full h-full "></button>
 
-            <button onClick={mint} className=' md:hidden group cursor-pointer absolute z-10 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
+            <button onClick={() => {
+                write()
+                setLoader(true)
+                }} className=' md:hidden group cursor-pointer absolute z-10 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
                 <Image width={80} height={80} src={claimUp} alt="home" className={"w-40 group-hover:hidden"} />
                 <Image width={80} height={80} src={claimDown} alt="home" className={"w-40 hidden group-hover:block"} />
             </button>
