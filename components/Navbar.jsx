@@ -37,7 +37,8 @@ import dynamic from 'next/dynamic'
 //Button Layout
 import { useState, useEffect} from 'react'
 import NavButton from './UI/Buttons/navButton'
-import { WalletConnectButton } from "./UI/Buttons/walletConnectButton"
+// import { WalletConnectButton } from "./UI/Buttons/walletConnectButton"
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 import GuacBalance from "./UI/Labels/guacBalance"
 // const GuacBalance = dynamic(() => import("./UI/Labels/guacBalance"), { ssr: false });
@@ -87,7 +88,7 @@ export default function Navbar() {
                 <NavButton upImage={minimartBtnUp} downImage={minimartBtnDown} selected={params == "/minimart" ? true : false} link={"/minimart"} />
             </div>
             <div suppressHydrationWarning={true} className='flex flex-row gap-2'>
-                <WalletConnectButton />
+                <ConnectButton />
                 {isClient && isConnected ? <GuacBalance /> : <></>}
             </div>
         </div>
