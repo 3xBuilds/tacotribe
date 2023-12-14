@@ -26,7 +26,7 @@ export const WalletConnectButton = () => {
             (!authenticationStatus ||
               authenticationStatus === 'authenticated');
           console.log("Connectionnn", authenticationStatus)
-          console.log("Balance", account.displayBalance)
+          console.log("Balance", account)
           return (
             <div
               {...(!ready && {
