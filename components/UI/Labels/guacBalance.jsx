@@ -5,42 +5,13 @@ import { contractAdds } from "../../../utils/contractAdds"
 import guacTokenabi from "../../../utils/newAbis/guacTokenabi";
 import { useAccount, useContractRead } from 'wagmi'
 
-import Swal from 'sweetalert2'
-
 import {ethers} from "ethers"
-
-async function guacSetup(address){
-    const guacAdd = contractAdds.guacToken;
-
-    const provider = new ethers.providers.JsonRpcProvider("https://polygon-rpc.com");
-
-    const signer = provider.getSigner(address);
-    console.log(signer)
-
-    try{
-    const contract = new ethers.Contract( guacAdd , guacTokenabi , signer );
-    console.log("Guac Setup", contract)
-    return contract;
-}
-    catch(err){
-        console.log("Error",err)
-
-        Swal.fire({
-            title: 'Error!',
-            text: 'Something went wrong!',
-            icon: 'error',
-            confirmButtonText: 'Cool!'
-        })
-        
-    }    
-    
-}
 
 export default function GuacBalance(){
 
     const { address, isConnected,} = useAccount()
 
-    const { data, isError, isLoading, isSuccess } = useContractRead({
+    const { data, isSuccess, refetch} = useContractRead({
         address: contractAdds.guacToken,
         abi: guacTokenabi,
         functionName: 'balanceOf',
@@ -49,29 +20,25 @@ export default function GuacBalance(){
 
     const [guac, setGuac] = useState(0);
 
-    const fetchBalance = async () => {
-
-        try{
-            // const contract = await guacSetup(address);
-            // const balance = ethers.utils.formatEther(await contract.balanceOf(address));
-            // console.log("Balance", balance)
-            const balance = ethers.utils.formatEther(data)
-            setGuac(Number(balance));
-        }
-        catch(err) {
-            console.log(err)
-            console.log("Error fetching balance")
-            setGuac(0);
-        }
-    }
-
     useEffect(()=>{
         console.log("connection: ", isConnected);
-        if(isConnected, isSuccess){
-            fetchBalance();
+
+        const refetchWrapper = async () => {
+            await refetch();
         }
-        console.log("hiiii", typeof(guac))
-    },[isConnected, ])
+        
+        if(isConnected){
+            try{
+                refetchWrapper();
+                setGuac(Number(ethers.utils.formatEther(data)))
+            }
+            catch(err) {
+                console.log(err)
+                console.log("Error fetching balance")
+                setGuac(0);
+            }
+        }
+    },[isConnected, isSuccess])
 
 
     // if(isConnected) 
