@@ -7,7 +7,6 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { SessionProvider } from "next-auth/react"
 import { WagmiConfig, createConfig, configureChains } from "wagmi"
 import { polygon } from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from "wagmi/providers/public"
 import { RainbowKitSiweNextAuthProvider, } from '@rainbow-me/rainbowkit-siwe-next-auth';
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
@@ -15,7 +14,6 @@ import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 const { chains, publicClient } = configureChains(
     [polygon],
     [
-        alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
         publicProvider()
     ]
 )

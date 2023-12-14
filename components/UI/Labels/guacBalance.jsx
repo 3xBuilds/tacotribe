@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { contractAdds } from "../../../utils/contractAdds"
 import guacTokenabi from "../../../utils/newAbis/guacTokenabi";
-import { useAccount } from 'wagmi'
+import { useAccount, useContractRead } from 'wagmi'
 
 import Swal from 'sweetalert2'
 
@@ -39,14 +39,23 @@ async function guacSetup(address){
 export default function GuacBalance(){
 
     const { address, isConnected,} = useAccount()
+
+    const { data, isError, isLoading } = useContractRead({
+        address: contractAdds.guacToken,
+        abi: guacTokenabi,
+        functionName: 'balanceOf',
+        args: [address]
+    })
+
     const [guac, setGuac] = useState(0);
 
     const fetchBalance = async () => {
 
         try{
-            const contract = await guacSetup(address);
-            const balance = ethers.utils.formatEther(await contract.balanceOf(address));
+            // const contract = await guacSetup(address);
+            // const balance = ethers.utils.formatEther(await contract.balanceOf(address));
             // console.log("Balance", balance)
+            const balance = ethers.utils.formatEther(data)
             setGuac(Number(balance));
         }
         catch(err) {
