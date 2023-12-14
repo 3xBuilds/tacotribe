@@ -3,6 +3,7 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export const WalletConnectButton = () => {
+
   return (
     <div className='block'>
       <ConnectButton.Custom>
@@ -24,6 +25,7 @@ export const WalletConnectButton = () => {
             chain &&
             (!authenticationStatus ||
               authenticationStatus === 'authenticated');
+          console.log("Connectionnn", authenticationStatus)
           return (
             <div
               {...(!ready && {
