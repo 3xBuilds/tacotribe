@@ -61,7 +61,7 @@ export default function PixelMint() {
         if (isConnected) {
             const contract = await pixelMintSetup(address);
 
-            await contract.mint({ gasLimit: 30000 }).then(
+            await contract.mint().then(
                 (res) => {
                     console.log(res);
                     Swal.fire({
