@@ -44,6 +44,8 @@ export default function Raffle() {
         <div className="text-black text-center">
           <h1 className="text-4xl">Purchase Tickets Using<span className=" inline-block ml-2 -mb-1"><Image className="w-10" width={100} height={100} src={guacLogo}></Image></span> $Guac!</h1>
         </div>
+        
+        
         <div className=" text-black translate-y-5 text-center">
           <h1 className="text-5xl">PREVIOUS WINNERS:</h1>
         </div>
