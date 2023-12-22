@@ -7,7 +7,7 @@ export const raffleData = [
       buttonText: "Hola!"
     },
     {
-      id: "#543",
+      id: "#542",
       name: "SQUIBLETS X FRENZ ",
       link: "",
       img: "https://d19rxn9gjbwl25.cloudfront.net/projectImages/staking/guacos.png",
