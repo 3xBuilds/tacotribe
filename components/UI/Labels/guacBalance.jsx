@@ -87,7 +87,7 @@ export default function GuacBalance(){
                 }
               }).then(async (result) => {
                 if (result.isConfirmed) {
-                  await fetchBalance();
+                  window.location.reload();
                 }
                 // Swal.fire("Succesful!", "", "success");
               })
