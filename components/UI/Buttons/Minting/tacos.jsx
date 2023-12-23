@@ -60,7 +60,7 @@ export default function TacoMint() {
         const contract = await tacoMintSetup(address);
         console.log("inside mint", contract);
         t
-        await contract.mint(amount, { gasLimit: 30000, value: ethers.utils.parseEther(String(15 * amount)) }).then(
+        await contract.mint(amount, {value: ethers.utils.parseEther(String(25 * amount)) }).then(
             (res) => {
                 console.log(res);
                 Swal.fire({

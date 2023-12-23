@@ -373,6 +373,7 @@ export default function StakeTemplate({ tacoType }) {
 
    switch(tacoType){
     case 0:
+      setUserNFTs([]);
       try{
         setLoader(true);
         const data0 = await contract?.balanceTaco();
@@ -397,6 +398,7 @@ export default function StakeTemplate({ tacoType }) {
       break;
 
     case 1:
+      setUserNFTs([]);
       try{
         setLoader(true);
         const data1 = await contract?.balanceDoodle();
@@ -421,6 +423,7 @@ export default function StakeTemplate({ tacoType }) {
       break;
 
     case 3:
+      setUserNFTs([]);
       try{
         setLoader(true);
         const data3 = await contract?.balancePT();
@@ -444,6 +447,7 @@ export default function StakeTemplate({ tacoType }) {
       }
       break;
     case 4:
+      setUserNFTs([]);
       try{
         setLoader(true);
         const data4 = await contract?.balanceDP();
@@ -466,6 +470,7 @@ export default function StakeTemplate({ tacoType }) {
       }
       break;      
     case 5:
+      setUserNFTs([]);
       try{
         setLoader(true);
         const data5 = await contract?.balanceBT();
@@ -490,6 +495,7 @@ export default function StakeTemplate({ tacoType }) {
       break;
 
     case 6:
+      setUserNFTs([]);
       try{
         setLoader(true);
         const data6 = await contract?.balanceGT();
@@ -514,6 +520,7 @@ export default function StakeTemplate({ tacoType }) {
       break;
 
     case 7:
+      setUserNFTs([]);
       try{
         setLoader(true);
         const data7 = await contract?.balanceGS();
@@ -683,10 +690,18 @@ export default function StakeTemplate({ tacoType }) {
       <div className="w-[95%] md:w-[700px] mx-auto bg-yellow-400 mb-10 overflow-hidden items-center justify-center grid grid-cols-2 max-md:grid-flow-row max-md:grid-cols-1 gap-x-5 p-5 rounded-[32px]">
         <div className="h-80 my-auto flex flex-col items-center justify-center">
           <Image width={500} height={500} src={img} className=" object-cover object-center w-[90%]" />
-          {balance > 0 && tacoType == 1 || tacoType == 0 && <button onClick={claimAll} className='group cursor-pointer mx-auto max-md:mt-5 md:col-span-2'>
+          {balance > 0 && tacoType == 1 && <button onClick={claimAll} className='group cursor-pointer mx-auto max-md:mt-5 md:col-span-2'>
+            
           <Image width={80} height={80} src={claimUp} alt="home" className={"w-40 group-hover:hidden"} />
           <Image width={80} height={80} src={claimDown} alt="home" className={"w-40 hidden group-hover:block"} />
         </button>}
+
+        {balance > 0 && tacoType == 0 && <button onClick={claimAll} className='group cursor-pointer mx-auto max-md:mt-5 md:col-span-2'>
+            
+          <Image width={80} height={80} src={claimUp} alt="home" className={"w-40 group-hover:hidden"} />
+          <Image width={80} height={80} src={claimDown} alt="home" className={"w-40 hidden group-hover:block"} />
+        </button>}
+
         </div>
         <div className="flex flex-col max-md:text-center max-md:items-center gap-2 h-fit w-[80%] mx-auto my-auto">
           <div className="bg-white rounded-full w-full px-4 py-2 shadow shadow-black/20 text-black text-xl"><h2 >{nameArr[tacoType]}</h2></div>

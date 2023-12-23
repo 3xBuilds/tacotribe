@@ -61,7 +61,7 @@ export default function DoodlePixelMint() {
             const contract = await doodledPixelTacoMintSetup(address);
             console.log("inside mint", contract);
 
-            await contract.mint({ gasLimit: 30000 }).then(
+            await contract.mint().then(
                 (res) => {
                     console.log(res);
                     Swal.fire({
