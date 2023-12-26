@@ -383,7 +383,7 @@ export default function StakeTemplate({ tacoType }) {
           const tokenId = Number(item[0]);
           const unclaimedAmount = ethers.utils.formatEther(String(item[1]));
           const name = "Taco #"+tokenId;
-          const img = "https://ipfs.io/ipfs/bafybeifi336lirgb6x2aebf7ltvad2gtihe2tszp3urhk3x6j6lyktqma4/"+tokenId+".png";
+          const img = "https://ipfs.io/ipfs/bafybeieflb3fni3j5jhpkou4npmaft7lbznqxsf7tpmzpm4qfxq46o4zwy/"+tokenId+".png";
   
           dispArr.push({name, tokenId, img, unclaimedAmount, tacoType})
         })
