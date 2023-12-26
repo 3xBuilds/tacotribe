@@ -75,7 +75,6 @@ export default function DoodleMint() {
                         icon: 'success',
                         confirmButtonText: 'LFG 🌮'
                     })
-
                 }).catch(
                     (err) => {
                         console.log(err)

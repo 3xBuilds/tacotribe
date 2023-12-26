@@ -101,7 +101,7 @@ export default function GuacBalance(){
             fetchBalance();
         }
         console.log("hiiii", typeof(guac))
-    },[isConnected, rfc])
+    },[])
 
 
     // if(isConnected) 
