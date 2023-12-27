@@ -70,27 +70,27 @@ export default function GuacBalance(){
         catch(err) {
             console.log(err)
             console.log("Error fetching balance")
-            Swal.fire({
-                title: 'Error!',
-                text: "Something Went Wrong",
-                imageUrl: error,
-                imageWidth: 200,
-                imageHeight: 200,
-                imageAlt: "Taco OOPS!",
-                confirmButtonText: 'Retry ?',
-                confirmButtonColor: "#facc14",
-                customClass: {
-                  container: "border-8 border-black",
-                  popup: "bg-white rounded-2xl border-8 border-black",
-                  image: "-mb-5",
-                  confirmButton: "w-40 text-black"
-                }
-              }).then(async (result) => {
-                if (result.isConfirmed) {
-                  window.location.reload();
-                }
-                // Swal.fire("Succesful!", "", "success");
-              })
+            // Swal.fire({
+            //     title: 'Error!',
+            //     text: "Something Went Wrong",
+            //     imageUrl: error,
+            //     imageWidth: 200,
+            //     imageHeight: 200,
+            //     imageAlt: "Taco OOPS!",
+            //     confirmButtonText: 'Retry ?',
+            //     confirmButtonColor: "#facc14",
+            //     customClass: {
+            //       container: "border-8 border-black",
+            //       popup: "bg-white rounded-2xl border-8 border-black",
+            //       image: "-mb-5",
+            //       confirmButton: "w-40 text-black"
+            //     }
+            //   }).then(async (result) => {
+            //     if (result.isConfirmed) {
+            //       window.location.reload();
+            //     }
+            //     // Swal.fire("Succesful!", "", "success");
+            //   })
             setGuac(0);
         }
     }
