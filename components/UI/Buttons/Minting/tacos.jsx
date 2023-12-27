@@ -6,6 +6,11 @@ import { useState } from "react"
 import { contractAdds } from "../../../../utils/contractAdds"
 import abi from "../../../../utils/newAbis/tacotribeabi"
 
+import arrowright from "../../../../assets/projectImages/arrowright.png"
+
+
+import { useGlobalContext } from "../../../../context/MainContext"
+
 import { useAccount } from 'wagmi'
 import Swal from 'sweetalert2'
 
@@ -52,24 +57,29 @@ export async function tacoMintSetup(address) {
 
 export default function TacoMint() {
 
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState(1);
     const [amountBoxShow, setAmountBoxShow] = useState(false);
     const { address, isConnected } = useAccount()
 
+    const { setLoader } = useGlobalContext();
 
     async function mint() {
+        setLoader(true)
         const contract = await tacoMintSetup(address);
         console.log("inside mint", contract);
         await contract.mint(amount, {value: ethers.utils.parseEther(String(15 * amount)) }).then(
             (res) => {
+                setLoader(false)
                 console.log(res);
                 Swal.fire({
                     title: 'Success!',
                     text: 'Taco Tribe Minted',
                     icon: 'success',
                     confirmButtonText: 'LFG 🌮'
-                }).catch(
-                    (err) => {
+                })
+            }
+        ).catch((err)=>{
+            setLoader(false)
                         console.log(err)
                         Swal.fire({
                             title: 'Error!',
@@ -87,18 +97,18 @@ export default function TacoMint() {
                                 confirmButton: "w-40 text-black"
                             }
                         })
-                    });
-            }
-        ).catch((err)=>{
-            console.log("Error", err);
         }
         )
 
     }
 
-    const handleamountChange = async (e) => {
-        setAmount(e.target.value);
-    };
+    async function changeAmount(val){
+        if(amount>=1)
+        setAmount(amount+val);
+        if(amount == 0 && val == 1)
+        setAmount(1);
+    }
+
 
     return (
         <>
@@ -113,8 +123,17 @@ export default function TacoMint() {
                 <div className="bg-yellow-400 z-20 border-2 border-black rounded-2xl w-[300px] px-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-2xl shadow-black">
                     <div className="relative flex flex-col items-center justify-center w-full h-full p-5 pt-10">
                         <h2 onClick={() => { setAmountBoxShow(false) }} className="absolute top-0 right-0 cursor-pointer m-2 mx-4 text-black hover:text-red-600 transform hover:scale-125 transition-all duration-200 ease-in-out">x</h2>
-                        <input placeholder="0" type="number" onKeyDown={(e) => { e.preventDefault() }} step={1} min={0} onChange={handleamountChange} value={amount} className="text-black border-2 border-black p-5 py-4 text-center text-3xl block h-fit w-full rounded-xl">
-                        </input>
+                        {/* <input placeholder="0" type="number" onKeyDown={(e) => { e.preventDefault() }} step={1} min={0} onChange={handleamountChange} value={amount} className="text-black border-2 border-black p-5 py-4 text-center text-3xl block h-fit w-full rounded-xl">
+                        </input> */}
+                        <div className="grid grid-flow-col grid-cols-3 items-center gap-5">
+                            <button onClick={()=>{changeAmount(-1)}} className="p-3">
+                                <Image width={1920} height={1080} src={arrowright} className="w-[3rem] rotate-180"/>
+                            </button>
+                            <div className="text-[2.5rem] text-center text-black">{amount}</div>
+                            <button onClick={()=>{changeAmount(1)}} className="p-3">
+                                <Image width={1920} height={1080} src={arrowright} className="w-[3rem]"/>
+                            </button>
+                        </div>
                         <button onClick={mint} className='mt-5 group'>
                             <Image width={80} height={80} src={claimUp} alt="home" className={"w-40 group-hover:hidden"} />
                             <Image width={80} height={80} src={claimDown} alt="home" className={"w-40 hidden group-hover:block"} />

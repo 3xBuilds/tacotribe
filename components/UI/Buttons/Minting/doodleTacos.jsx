@@ -9,6 +9,9 @@ import Swal from 'sweetalert2'
 
 import { useGlobalContext } from "../../../../context/MainContext"
 
+import arrowright from "../../../../assets/projectImages/arrowright.png"
+
+
 const claimUp = "https://tacotribe.s3.ap-south-1.amazonaws.com/assets/buttons/Mint_Button_UP.png"
 const claimDown = "https://tacotribe.s3.ap-south-1.amazonaws.com/assets/buttons/Mint_Button_DOWN.png"
 
@@ -53,7 +56,7 @@ export async function doodledTacoMintSetup(address) {
 
 export default function DoodleMint() {
 
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState(1);
     const [amountBoxShow, setAmountBoxShow] = useState(false);
     const { isConnected, address } = useAccount()
 
@@ -103,11 +106,12 @@ export default function DoodleMint() {
         setLoader(false)
     }
 
-    const handleamountChange = async (e) => {
-
-        setAmount(e.target.value);
-
-    };
+    async function changeAmount(val){
+        if(amount>=1)
+        setAmount(amount+val);
+        if(amount == 0 && val == 1)
+        setAmount(1);
+    }
 
     return (
         <>
@@ -126,14 +130,22 @@ export default function DoodleMint() {
                 <div className="bg-yellow-400 z-10 border-2 border-black rounded-2xl w-[300px] px-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-2xl shadow-black">
                     <div className="relative flex flex-col items-center justify-center w-full h-full p-5 pt-10">
                         <h2 onClick={() => { setAmountBoxShow(false) }} className="absolute top-0 right-0 cursor-pointer m-2 mx-4 text-black hover:text-red-600 transform hover:scale-125 transition-all duration-200 ease-in-out">x</h2>
-                        <input placeholder="0" type="number" onKeyDown={(e) => { e.preventDefault() }} step={1} min={0} onChange={handleamountChange} value={amount} className="text-black border-2 border-black p-5 py-4 text-center text-3xl block h-fit w-full rounded-xl">
-                        </input>
-                        <button onClick={mint} className='mt-5 group bg-red-500 rounded-full hover:bg-red-700 duration-300 px-8 py-3 border-2 border-white'>
-                            {/* <Image width={80} height={80} src={claimUp} alt="home" className={"w-40 group-hover:hidden"} />
-                            <Image width={80} height={80} src={claimDown} alt="home" className={"w-40 hidden group-hover:block"} /> */}
-                            Mint
+                        {/* <input placeholder="0" type="number" onKeyDown={(e) => { e.preventDefault() }} step={1} min={0} onChange={handleamountChange} value={amount} className="text-black border-2 border-black p-5 py-4 text-center text-3xl block h-fit w-full rounded-xl">
+                        </input> */}
+                        <div className="grid grid-flow-col grid-cols-3 items-center gap-5">
+                            <button onClick={()=>{changeAmount(-1)}} className="p-3">
+                                <Image width={1920} height={1080} src={arrowright} className="w-[3rem] rotate-180"/>
+                            </button>
+                            <div className="text-[2.5rem] text-center text-black">{amount}</div>
+                            <button onClick={()=>{changeAmount(1)}} className="p-3">
+                                <Image width={1920} height={1080} src={arrowright} className="w-[3rem]"/>
+                            </button>
+                        </div>
+                        <button onClick={mint} className='mt-5 group'>
+                            <Image width={80} height={80} src={claimUp} alt="home" className={"w-40 group-hover:hidden"} />
+                            <Image width={80} height={80} src={claimDown} alt="home" className={"w-40 hidden group-hover:block"} />
                         </button>
-                        {/* <button onClick={mint} className="bg-red-400 mt-10 absolute top-1/2 left-1/2">Mint me pls</button> */}
+                        
                     </div>
                 </div>}
         </>
