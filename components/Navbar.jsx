@@ -71,7 +71,7 @@ export default function Navbar() {
             <NavButton upImage={homeBtnUp} downImage={homeBtnDown} link={'https://www.nft.tacotribe.shop'} />
             <NavButton upImage={tacoBtnUp} downImage={tacoBtnDown} selected={params == "/" ? true : false} link={'/'} />
             <NavButton upImage={pixelTacoBtnUp} downImage={pixelTacoBtnDown} selected={params == "/pixelTaco" ? true : false} link={"/pixelTaco"} />
-            <NavButton upImage={sauceUp} downImage={sauceDown} selected={params == "/sauce" ? true : false} link={"/sauce"} />
+            {/* <NavButton upImage={sauceUp} downImage={sauceDown} selected={params == "/sauce" ? true : false} link={"/sauce"} /> */}
             <NavButton upImage={doodledBtnUp} downImage={doodledBtnDown} selected={params == "/doodled" ? true : false} link={"/doodled"} />
             <NavButton upImage={pixelDoodBtnUp} downImage={pixelDoodBtnDown} selected={params == "/pixelDood" ? true : false} link={"/pixelDood"} />
             <NavButton upImage={stakeBtnUp} downImage={stakeBtnDown} selected={params == "/stake" ? true : false} link={"/stake"} />
@@ -93,7 +93,7 @@ export default function Navbar() {
                 <NavButton upImage={homeBtnUp} downImage={homeBtnDown} link={'https://www.nft.tacotribe.shop'} />
                 <NavButton upImage={tacoBtnUp} downImage={tacoBtnDown} selected={params == "/" ? true : false} link={'/'} />
                 <NavButton upImage={pixelTacoBtnUp} downImage={pixelTacoBtnDown} selected={params == "/pixelTaco" ? true : false} link={"/pixelTaco"} />
-                <NavButton upImage={sauceUp} downImage={sauceDown} selected={params == "/sauce" ? true : false} link={"/sauce"} />
+                {/* <NavButton upImage={sauceUp} downImage={sauceDown} selected={params == "/sauce" ? true : false} link={"/sauce"} /> */}
                 <NavButton upImage={doodledBtnUp} downImage={doodledBtnDown} selected={params == "/doodled" ? true : false} link={"/doodled"} />
                 <NavButton upImage={pixelDoodBtnUp} downImage={pixelDoodBtnDown} selected={params == "/pixelDood" ? true : false} link={"/pixelDood"} />
                 <NavButton upImage={stakeBtnUp} downImage={stakeBtnDown} selected={params == "/stake" ? true : false} link={"/stake"} />

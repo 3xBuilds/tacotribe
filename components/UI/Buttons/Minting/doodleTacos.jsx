@@ -138,6 +138,10 @@ export default function DoodleMint() {
  <div className="bg-yellow-400 text-center translate-y-32 px-4 py-2 text-xl rounded-xl border-2 text-black border-yellow-600 w-fit flex mx-auto">
                 Minted: {supply}/8226
             </div>
+
+            <div className="bg-yellow-400 text-center translate-y-36 px-4 py-2 text-lg rounded-xl border-2 text-black border-yellow-600 w-fit flex mx-auto">
+                Price: 15 $MATIC
+            </div>
             <button onClick={() => { isConnected && setAmountBoxShow(true) }} className=" hidden md:block absolute cursor-pointer w-full h-[90%]"></button>
 
             <button onClick={() => { isConnected && setAmountBoxShow(true) }} className='md:hidden group cursor-pointer absolute z-10 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
